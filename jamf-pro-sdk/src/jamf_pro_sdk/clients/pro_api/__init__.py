@@ -31,6 +31,7 @@ from ...models.pro.mdm import (
     SendMdmCommandResponse,
     SetRecoveryLockCommand,
     ShutDownDeviceCommand,
+    RedeployFrameworkResponse,
 )
 from ...models.pro.mobile_devices import MobileDevice
 from ...models.pro.packages import Package
@@ -599,3 +600,29 @@ class ProApi:
         )
 
         return paginator(return_generator=return_generator)
+
+
+    # Redeploy Management Framework
+
+        
+    def redeploy_management_framework_v1(self, computer_ids: Union[int, List[int]]) -> Union[RedeployFrameworkResponse, List[RedeployFrameworkResponse]]:
+        """Trigger redeployment of the Jamf management framework for one or more computers.
+
+        :param computer_ids: A single computer ID or a list of IDs.
+        :type computer_ids: Union[int, List[int]]
+        :return: Response(s) from Jamf API containing deviceId and commandUuid.
+        :rtype: Union[dict, List[dict]]
+        """
+
+        if isinstance(computer_ids, int):
+            computer_ids = [computer_ids]
+
+        responses = []
+        for computer_id in computer_ids:
+            resp = self.api_request(
+                method="post",
+                resource_path=f"v1/jamf-management-framework/redeploy/{computer_id}",
+            )
+            responses.append(RedeployFrameworkResponse(**resp.json()))
+
+        return responses[0] if len(responses) == 1 else responses

@@ -289,3 +289,11 @@ class MdmCommandStatus(BaseModel):
     dateSent: datetime
     dateCompleted: datetime
     profileId: Optional[int] = None
+
+
+# Actions Response
+
+
+class RedeployFrameworkResponse(BaseModel):
+    deviceId: str
+    commandUuid: str
