@@ -1,49 +1,42 @@
 import os
 import logging
 
-# jamf-pro-sdk imports
 from jamf_pro_sdk import JamfProClient, SessionConfig
 from jamf_pro_sdk.clients.auth import ApiClientCredentialsProvider
 from jamf_pro_sdk.helpers import logger_quick_setup
 
-# Environment constants
-JAMF_CLIENT_ID = os.environ.get("JAMF_CLIENT_ID")
-JAMF_CLIENT_SECRET = os.environ.get("JAMF_CLIENT_SECRET")
-JAMF_BASE_URL = os.environ.get("JAMF_BASE_URL")
-GROUP_ID = os.environ.get("GROUP_ID")
-
-# Session config
-config = SessionConfig()
-config.timeout = 30
-config.max_retries = 3
-config.max_concurrency = 5
-config.return_exceptions = True
-config.verify = True
-config
+# Load configuration from environment
+JAMF_CLIENT_ID = os.getenv("JAMF_CLIENT_ID")
+JAMF_CLIENT_SECRET = os.getenv("JAMF_CLIENT_SECRET")
+JAMF_BASE_URL = os.getenv("JAMF_BASE_URL")
+GROUP_ID = os.getenv("GROUP_ID")
 
 # Logging
-logger_quick_setup(level=logging.DEBUG)
+logger_quick_setup(level=logging.INFO)
 
-# initialize JamfProClient
+# Session config
+config = SessionConfig(
+    timeout=30,
+    max_retries=3,
+    max_concurrency=5,
+    return_exceptions=True,
+    verify=True
+)
+
+# Initialize JamfProClient
 client = JamfProClient(
     server=JAMF_BASE_URL,
     credentials=ApiClientCredentialsProvider(JAMF_CLIENT_ID, JAMF_CLIENT_SECRET),
     session_config=config
 )
 
-# Retrieve Computer Group Data
-computer_group_data = client.classic_api.get_computer_group_by_id(GROUP_ID)
+# Redeploy management framework for computers in group
+group = client.classic_api.get_computer_group_by_id(GROUP_ID)
+computers = group.computers or []
 
-# If there are members of the Group, grab their device IDs and pass them into the redeploy_management_framework_v1 function
-if computer_group_data.computers:
-    computers = computer_group_data.computers or []
-
-    computer_ids = []
-
-    for computer in computers:
-        computer_ids.append(computer.id)
-
-    action = client.pro_api.redeploy_management_framework_v1(computer_ids)
-    print(action)
+if computers:
+    computer_ids = [c.id for c in computers]
+    result = client.pro_api.redeploy_management_framework_v1(computer_ids)
+    print(result)
 else:
-    print("No Computers in Group")
+    print(f"No computers in Computer Group with ID={GROUP_ID}")
