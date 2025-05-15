@@ -5,17 +5,12 @@ import logging
 from jamf_pro_sdk import JamfProClient, SessionConfig
 from jamf_pro_sdk.clients.auth import ApiClientCredentialsProvider
 from jamf_pro_sdk.helpers import logger_quick_setup
-from jamf_pro_sdk.clients.pro_api.pagination import Paginator, FilterField, SortField, filter_group
-from jamf_pro_sdk.models.pro.mdm import SetRecoveryLockCommand
-from jamf_pro_sdk.models.pro.mdm import EnableLostModeCommand
-from jamf_pro_sdk.models.pro.computers import ComputerGroupMembership
 
 # Environment constants
 JAMF_CLIENT_ID = os.environ.get("JAMF_CLIENT_ID")
 JAMF_CLIENT_SECRET = os.environ.get("JAMF_CLIENT_SECRET")
-#JAMF_SDK_BASE_URL = os.environ.get("JAMF_SDK_BASE_URL")
 JAMF_BASE_URL = os.environ.get("JAMF_BASE_URL")
-GROUP_ID = 430
+GROUP_ID = os.environ.get("GROUP_ID")
 
 # Session config
 config = SessionConfig()
