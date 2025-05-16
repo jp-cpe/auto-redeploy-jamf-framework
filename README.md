@@ -2,16 +2,13 @@
 
 This script automates the redeployment of the Jamf management framework for macOS devices using Jamf Pro’s APIs. It is intended to support proactive remediation of macOS devices with broken Jamf framework.
 
-
-
 ```
 "In some situations, a managed computer can enter a state where MDM commands process normally, but functionality that relies on the Jamf management framework is consistently failing. In this state, policies fail to execute and the Jamf Pro logs report "Device Signature" errors for the computer.
 
 To restore management with the Jamf Pro server, the Jamf management framework should be reinstalled on the affected computer. As long as the MDM profile on the computer is still valid, you can use Jamf Pro to redeploy the Jamf management framework using the v1/jamf-management-framework/redeploy endpoint in the Jamf Pro API."
 ```
-  - Read more about redeploying the Jamf management framework using the Jamf Pro API [here](https://learn.jamf.com/en-US/bundle/technical-articles/page/Redeploying_the_Jamf_Management_Framework_Using_the_Jamf_Pro_API.html).
 
-**Note**: This script uses a customized version of the [Jamf Pro SDK for Python](https://github.com/macadmins/jamf-pro-sdk-python) and was inspired by Mann Consulting's ["Flawless MDM Communication"](https://github.com/mannconsulting/JNUC2024/) presentation at JNUC 2024. I highly recommend you check out both.
+- Read more about redeploying the Jamf management framework using the Jamf Pro API [here](https://learn.jamf.com/en-US/bundle/technical-articles/page/Redeploying_the_Jamf_Management_Framework_Using_the_Jamf_Pro_API.html).
 
 
 ## What It Does
@@ -62,7 +59,8 @@ Group A: "Not Checked In (14+ Days)"
   - `Profile Name` is `<name of configuration profile>`
 
 ---
-**Group A** is used as the scope for the Configuration Profile. **Group B** is used as the target for this script.
+- **Group A** is used as the scope for the Configuration Profile. 
+- **Group B** is used as the target for this script.
 
 
 ## Usage
@@ -113,3 +111,6 @@ If a single ID is passed, a single model is returned. If multiple IDs are passed
   }
 ]
 ```
+
+## Credit
+This script uses a customized version of the [Jamf Pro SDK for Python](https://github.com/macadmins/jamf-pro-sdk-python) and was inspired by Mann Consulting's ["Flawless MDM Communication"](https://github.com/mannconsulting/JNUC2024/) presentation at JNUC 2024. I highly recommend you check out both projects.
