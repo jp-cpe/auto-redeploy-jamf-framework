@@ -1,6 +1,6 @@
 # Jamf Framework Redeployment Script
 
-This script automates the redeployment of the Jamf management framework for macOS devices using Jamf Pro’s APIs. It is intended to support proactive remediation of macOS devices with broken Jamf framework.
+This script automates the redeployment of the Jamf management framework to macOS devices using Jamf Pro’s APIs. It is intended to support proactive remediation of macOS devices with broken Jamf framework.
 
 
 > "In some situations, a managed computer can enter a state where MDM commands process normally, but functionality that relies on the Jamf management framework is consistently failing. In this state, policies fail to execute and the Jamf Pro logs report "Device Signature" errors for the computer. 
