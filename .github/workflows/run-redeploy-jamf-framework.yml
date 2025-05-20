@@ -1,8 +1,8 @@
 name: Run Redeploy Jamf Framework Script
 
 on:
-  schedule:
-    - cron: '0 2 * * 1'  # Runs every Sunday 7 PM PT (Monday 2 AM UTC)
+  #schedule:
+    #- cron: '0 2 * * 1'  # Runs every Sunday 7 PM PT (Monday 2 AM UTC)
   workflow_dispatch:  # manually trigger from GitHub UI
 
 jobs:
