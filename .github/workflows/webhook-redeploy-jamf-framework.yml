@@ -1,19 +1,23 @@
-name: Run Redeploy Jamf Framework Script
+name: Webhook Triggered Jamf Redeploy
 
 on:
-  #schedule:
-    #- cron: '0 2 * * 1'  # Runs every Sunday 7 PM PT (Monday 2 AM UTC)
-  workflow_dispatch:  # manually trigger from GitHub UI
+  workflow_dispatch:
+    inputs:
+      computer_id:
+        description: "Computer ID from Jamf"
+        required: true
+      source:
+        description: "Source of the trigger"
+        required: false
+        default: "webhook"
 
 jobs:
-  run:
+  redeploy:
     runs-on: ubuntu-latest
-
     env:
       JAMF_CLIENT_ID: ${{ secrets.JAMF_CLIENT_ID }}
       JAMF_CLIENT_SECRET: ${{ secrets.JAMF_CLIENT_SECRET }}
       JAMF_BASE_URL: ${{ secrets.JAMF_BASE_URL }}
-      GROUP_ID: ${{ secrets.GROUP_ID }}
 
     steps:
       - name: Checkout code
@@ -24,8 +28,8 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install editable SDK
+      - name: Install SDK
         run: pip install -e ./jamf-pro-sdk
 
-      - name: Run main script
-        run: python3 main.py
+      - name: Run webhook redeploy
+        run: python3 scripts/webhook_redeploy.py ${{ github.event.inputs.computer_id }}

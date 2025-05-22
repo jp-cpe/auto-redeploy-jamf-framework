@@ -1,0 +1,52 @@
+### STEP 1: fastapi_webhook/main.py
+
+from fastapi import FastAPI, Request
+import httpx
+import os
+
+app = FastAPI()
+
+@app.post("/")
+async def handle_webhook(request: Request):
+    payload = await request.json()
+
+    try:
+        computer_ids = payload["event"]["groupAddedDevicesIds"]
+    except Exception as e:
+        return {"status": "error", "detail": str(e)}
+
+    results = []
+    for computer_id in computer_ids:
+        result = await trigger_github_workflow(computer_id)
+        results.append({"computer_id": computer_id, **result})
+
+    return {"status": "dispatched", "results": results}
+
+
+async def trigger_github_workflow(computer_id: int):
+    GITHUB_TOKEN = os.getenv("GITHUB_PAT")
+    REPO = "jp-cpe/auto-redeploy-jamf-framework"
+    WORKFLOW_FILE = "webhook-redeploy-jamf-framework.yml"
+    REF = "main"
+
+    headers = {
+        "Authorization": f"Bearer {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28"
+    }
+
+    payload = {
+        "ref": REF,
+        "inputs": {
+            "computer_id": str(computer_id),
+            "source": "jamf-webhook"
+        }
+    }
+
+    async with httpx.AsyncClient() as client:
+        response = await client.post(
+            f"https://api.github.com/repos/{REPO}/actions/workflows/{WORKFLOW_FILE}/dispatches",
+            headers=headers,
+            json=payload
+        )
+        return {"status_code": response.status_code, "text": response.text}

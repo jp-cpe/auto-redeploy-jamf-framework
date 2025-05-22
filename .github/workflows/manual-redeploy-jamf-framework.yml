@@ -1,0 +1,29 @@
+name: Run Redeploy Jamf Framework Script
+
+on:
+  workflow_dispatch:  # manually trigger from GitHub UI
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    env:
+      JAMF_CLIENT_ID: ${{ secrets.JAMF_CLIENT_ID }}
+      JAMF_CLIENT_SECRET: ${{ secrets.JAMF_CLIENT_SECRET }}
+      JAMF_BASE_URL: ${{ secrets.JAMF_BASE_URL }}
+      GROUP_ID: ${{ secrets.GROUP_ID }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install editable SDK
+        run: pip install -e ./jamf-pro-sdk
+
+      - name: Run main script
+        run: python3 scripts/main.py
