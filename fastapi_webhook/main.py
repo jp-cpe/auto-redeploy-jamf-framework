@@ -1,13 +1,15 @@
-### STEP 1: fastapi_webhook/main.py
-
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Header, HTTPException
 import httpx
 import os
 
 app = FastAPI()
 
 @app.post("/")
-async def handle_webhook(request: Request):
+async def handle_webhook(request: Request, x_webhook_secret: str = Header(...)):
+    expected_secret = os.getenv("WEBHOOK_SECRET")
+    if x_webhook_secret != expected_secret:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+
     payload = await request.json()
 
     try:
