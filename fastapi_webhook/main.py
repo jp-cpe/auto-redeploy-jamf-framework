@@ -29,7 +29,7 @@ async def trigger_github_workflow(computer_id: int):
     GITHUB_TOKEN = os.getenv("GITHUB_PAT")
     REPO = "jp-cpe/auto-redeploy-jamf-framework"
     WORKFLOW_FILE = "webhook-redeploy-jamf-framework.yml"
-    REF = "main"
+    REF = "feature/webhook"
 
     headers = {
         "Authorization": f"Bearer {GITHUB_TOKEN}",
