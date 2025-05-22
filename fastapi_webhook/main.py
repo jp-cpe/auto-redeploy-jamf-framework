@@ -45,14 +45,14 @@ async def trigger_github_workflow(computer_id: int):
         }
     }
 
-print(f"Triggering workflow: {WORKFLOW_FILE} on branch {REF}")
-print(f"Payload: {payload}")
+    print(f"Triggering workflow: {WORKFLOW_FILE} on branch {REF}")
+    print(f"Payload: {payload}")
 
-async with httpx.AsyncClient() as client:
-    response = await client.post(
-        f"https://api.github.com/repos/{REPO}/actions/workflows/{WORKFLOW_FILE}/dispatches",
-        headers=headers,
-        json=payload
+    async with httpx.AsyncClient() as client:
+        response = await client.post(
+            f"https://api.github.com/repos/{REPO}/actions/workflows/{WORKFLOW_FILE}/dispatches",
+            headers=headers,
+            json=payload
     )
     print(f"GitHub response: {response.status_code} - {response.text}")
     return {"status_code": response.status_code, "text": response.text}
