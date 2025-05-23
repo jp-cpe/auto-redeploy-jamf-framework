@@ -1,0 +1,30 @@
+name: "💬 Feedback / Questions"
+description: Ask a question, provide feedback, or share thoughts
+title: "[Feedback] "
+labels: [question, feedback]
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: What's on your mind?
+      placeholder: "Any feedback, confusion, or questions? Drop them here!"
+    validations:
+      required: true
+
+  - type: input
+    id: role
+    attributes:
+      label: Your role / context
+      placeholder: "e.g. CPE at enterprise org, IT admin, SRE"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Priority
+      options:
+        - Just a thought 💭
+        - Nice to have 🙃
+        - Kinda important 🧐
+        - Blocking me 🔥
