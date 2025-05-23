@@ -77,7 +77,7 @@ Group A: "Not Checked In (14+ Days)"
   - `Read Computer Check-In`
   - `Read Smart Computer Groups`
 
-### 4. Clone this repository
+### 4. Clone this repository or click "Use this template"
 
 ### 5. Configure the GitHub workflow file
 The workflow is set to run **every Monday at 2:00 AM UTC** by default. It can also be run manually from within the repository's **Actions** tab. 
