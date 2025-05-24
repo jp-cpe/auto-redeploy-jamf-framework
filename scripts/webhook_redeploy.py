@@ -1,8 +1,7 @@
 import sys
-from utils.jamf_client import client
+from utils.jamf_client import redeploy_framework
 
+computer_ids = sys.argv[1]
 
-computer_id = sys.argv[1]
-
-print(f"Redeploying framework for computer ID {computer_id}")
-client.redeploy_management_framework_v1(computer_id)
+print(f"Redeploying framework for computer ID {computer_ids}")
+redeploy_framework(computer_ids)

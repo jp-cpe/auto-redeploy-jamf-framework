@@ -9,7 +9,6 @@ from jamf_pro_sdk.helpers import logger_quick_setup
 JAMF_CLIENT_ID = os.getenv("JAMF_CLIENT_ID")
 JAMF_CLIENT_SECRET = os.getenv("JAMF_CLIENT_SECRET")
 JAMF_BASE_URL = os.getenv("JAMF_BASE_URL")
-GROUP_ID = os.getenv("GROUP_ID")
 
 # Logging
 logger_quick_setup(level=logging.INFO)
@@ -29,3 +28,10 @@ client = JamfProClient(
     credentials=ApiClientCredentialsProvider(JAMF_CLIENT_ID, JAMF_CLIENT_SECRET),
     session_config=config
 )
+
+def redeploy_framework(computer_ids):
+    return client.pro_api.redeploy_management_framework_v1(computer_ids)
+
+def get_computers_in_group(group_id):
+    group = client.classic_api.get_computer_group_by_id(group_id)
+    return group.computers or []

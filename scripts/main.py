@@ -1,12 +1,14 @@
-from utils.jamf_client import client
+from utils.jamf_client import get_computers_in_group, redeploy_framework
+import os
 
-# Redeploy management framework for computers in group
-group = client.classic_api.get_computer_group_by_id(GROUP_ID)
-computers = group.computers or []
+GROUP_ID = os.getenv("GROUP_ID")
+
+computers = get_computers_in_group(GROUP_ID)
 
 if computers:
     computer_ids = [c.id for c in computers]
-    result = client.pro_api.redeploy_management_framework_v1(computer_ids)
+    result = redeploy_framework(computer_ids)
+    print(f"Redeploy triggered for IDs: {computer_ids}")
     print(result)
 else:
-    print(f"No computers in Computer Group with ID={GROUP_ID}")
+    print(f"No computers found in group with ID={GROUP_ID}")
