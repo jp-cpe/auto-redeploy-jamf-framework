@@ -111,5 +111,8 @@ If a single ID is passed, a single model is returned. If multiple IDs are passed
 ]
 ```
 
+## Notes
+No user interaction is required. The framework redeploys via the "Install Enterprise Application" MDM command over APNs. This triggers an "Enrollment Complete" state, running any associated policies and applying Global > Re-enrollment Settings. The devices will resume check-ins with Jamf, potentially triggering a backlog of policies if it’s been offline for a while.
+
 ## Credit
 This script uses a customized version of the [Jamf Pro SDK for Python](https://github.com/macadmins/jamf-pro-sdk-python) and was inspired by Mann Consulting's ["Flawless MDM Communication"](https://github.com/mannconsulting/JNUC2024/) presentation at JNUC 2024. I highly recommend you check out both projects.
