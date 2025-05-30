@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install editable SDK
+      - name: Install SDK
         run: pip install -e ./jamf-pro-sdk
 
       - name: Run main script

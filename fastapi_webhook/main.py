@@ -27,9 +27,9 @@ async def handle_webhook(request: Request, x_webhook_secret: str = Header(...)):
 
 async def trigger_github_workflow(computer_id: int):
     GITHUB_TOKEN = os.getenv("GITHUB_PAT")
-    REPO = "jp-cpe/auto-redeploy-jamf-framework"
+    REPO = os.getenv("REPO")
     WORKFLOW_FILE = "webhook-redeploy-jamf-framework.yml"
-    REF = "workflows-refactor"
+    REF = "main"
 
     headers = {
         "Authorization": f"Bearer {GITHUB_TOKEN}",

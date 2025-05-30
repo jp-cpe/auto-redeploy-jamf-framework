@@ -1,4 +1,4 @@
-name: Webhook Triggered Jamf Redeploy
+name: Webhook Triggered Jamf Framework Redeploy
 
 on:
   workflow_dispatch:
