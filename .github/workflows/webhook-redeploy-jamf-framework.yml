@@ -1,0 +1,53 @@
+name: Webhook Triggered Jamf Framework Redeploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      computer_id:
+        description: "Computer ID from Jamf"
+        required: true
+      source:
+        description: "Source of the trigger"
+        required: false
+        default: "webhook"
+
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    env:
+      JAMF_CLIENT_ID: ${{ secrets.JAMF_CLIENT_ID }}
+      JAMF_CLIENT_SECRET: ${{ secrets.JAMF_CLIENT_SECRET }}
+      JAMF_BASE_URL: ${{ secrets.JAMF_BASE_URL }}
+      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install SDK
+        run: pip install -e ./jamf-pro-sdk
+
+      - name: Run webhook redeploy
+        id: redeploy-script
+        run: |
+          set -o pipefail
+          python3 scripts/webhook_redeploy.py ${{ github.event.inputs.computer_id }} | tee redeploy_output.txt
+          echo "script_output<<EOF" >> $GITHUB_OUTPUT
+          cat redeploy_output.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Send Slack notification
+        if: always()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_MESSAGE: |
+            *Workflow run result:* ${{ job.status }}
+            *Script output:*
+            ```
+            ${{ steps.redeploy-script.outputs.script_output }}
+            ```

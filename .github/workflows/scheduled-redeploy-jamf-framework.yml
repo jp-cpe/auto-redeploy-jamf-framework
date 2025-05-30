@@ -1,9 +1,9 @@
-name: Run Redeploy Jamf Framework Script
+name: Scheduled Jamf Framework Redeploy
 
 on:
+  workflow_dispatch:
   #schedule:
     #- cron: '0 2 * * 1'  # Runs every Sunday 7 PM PT (Monday 2 AM UTC)
-  workflow_dispatch:  # manually trigger from GitHub UI
 
 jobs:
   run:
@@ -24,8 +24,8 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install editable SDK
+      - name: Install SDK
         run: pip install -e ./jamf-pro-sdk
 
       - name: Run main script
-        run: python3 main.py
+        run: python3 scripts/main.py

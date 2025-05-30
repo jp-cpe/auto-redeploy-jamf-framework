@@ -1,0 +1,25 @@
+# Python cruft
+__pycache__/
+*.py[cod]
+*.pyo
+*.log
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# macOS metadata
+.DS_Store
+
+# Git and GitHub
+.git/
+.github/
+
+# OneDrive-specific noise
+*.lnk
+*.tmp
+~$*
+
+# Anything else
+*.swp

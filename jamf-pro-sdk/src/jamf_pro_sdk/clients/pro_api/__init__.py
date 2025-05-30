@@ -605,17 +605,20 @@ class ProApi:
     # Redeploy Management Framework
 
         
-    def redeploy_management_framework_v1(self, computer_ids: Union[int, List[int]]) -> Union[RedeployFrameworkResponse, List[RedeployFrameworkResponse]]:
-        """Trigger redeployment of the Jamf management framework for one or more computers.
+    def redeploy_management_framework_v1(self, computer_ids: Union[int, str, List[Union[int, str]]]) -> Union[RedeployFrameworkResponse, List[RedeployFrameworkResponse]]:
+        """
+        Trigger redeployment of the Jamf management framework for one or more computers.
 
-        :param computer_ids: A single computer ID or a list of IDs.
-        :type computer_ids: Union[int, List[int]]
-        :return: Response(s) from Jamf API containing deviceId and commandUuid.
+        :param computer_ids: A single computer ID or a list of IDs. Each ID can be an int or a str.
+        :type computer_ids: Union[int, str, List[Union[int, str]]]
+        :return: Response(s) from the Jamf API containing deviceId and commandUuid.
         :rtype: Union[dict, List[dict]]
         """
 
-        if isinstance(computer_ids, int):
-            computer_ids = [computer_ids]
+        if isinstance(computer_ids, (int, str)):
+            computer_ids = [str(computer_ids)]
+        elif isinstance(computer_ids, list):
+            computer_ids = [str(cid) for cid in computer_ids]
 
         responses = []
         for computer_id in computer_ids:
