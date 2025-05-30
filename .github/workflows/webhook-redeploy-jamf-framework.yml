@@ -1,9 +1,0 @@
-name: Dummy Webhook
-
-on: [workflow_dispatch]
-
-jobs:
-  noop:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "This is just to register the workflow"
