@@ -1,4 +1,4 @@
-name: Run Redeploy Jamf Framework Script
+name: Manual/Scheduled Redeploy Jamf Framework
 
 on:
   schedule:
