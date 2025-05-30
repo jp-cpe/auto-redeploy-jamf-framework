@@ -18,6 +18,7 @@ jobs:
       JAMF_CLIENT_ID: ${{ secrets.JAMF_CLIENT_ID }}
       JAMF_CLIENT_SECRET: ${{ secrets.JAMF_CLIENT_SECRET }}
       JAMF_BASE_URL: ${{ secrets.JAMF_BASE_URL }}
+      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
 
     steps:
       - name: Checkout code
@@ -32,4 +33,16 @@ jobs:
         run: pip install -e ./jamf-pro-sdk
 
       - name: Run webhook redeploy
-        run: python3 scripts/webhook_redeploy.py ${{ github.event.inputs.computer_id }}
+        id: redeploy-script
+        run: |
+          set -o pipefail
+          python3 scripts/webhook_redeploy.py ${{ github.event.inputs.computer_id }} | tee redeploy_output.txt
+          echo ::set-output name=script_output::$(<redeploy_output.txt)
+
+      - name: Send Slack notification
+        if: always()
+        uses: rtCamp/action-slack-notify@v2
+        with:
+          args: |
+            Workflow run result: ${{ job.status }}
+            Script output: ${{ steps.redeploy-script.outputs.script_output }}
