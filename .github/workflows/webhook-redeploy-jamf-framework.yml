@@ -18,7 +18,7 @@ jobs:
       JAMF_CLIENT_ID: ${{ secrets.JAMF_CLIENT_ID }}
       JAMF_CLIENT_SECRET: ${{ secrets.JAMF_CLIENT_SECRET }}
       JAMF_BASE_URL: ${{ secrets.JAMF_BASE_URL }}
-      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
     steps:
       - name: Checkout code
