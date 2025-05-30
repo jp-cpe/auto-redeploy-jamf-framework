@@ -44,8 +44,8 @@ jobs:
       - name: Send Slack notification
         if: always()
         uses: rtCamp/action-slack-notify@v2
-        with:
-          message: |
+        env:
+          SLACK_MESSAGE: |
             *Workflow run result:* ${{ job.status }}
             *Script output:*
             ```
