@@ -54,5 +54,5 @@ async def trigger_github_workflow(computer_id: int):
             headers=headers,
             json=payload
     )
-    print(f"GitHub response: {response.status_code} - {response.text}")
-    return {"status_code": response.status_code, "text": response.text}
+    print(f"GitHub response: {response.status_code}")
+    return {"status_code": response.status_code}
