@@ -28,4 +28,22 @@ jobs:
         run: pip install -e ./jamf-pro-sdk
 
       - name: Run main script
-        run: python3 scripts/main.py
+        id: main-script
+        run: |
+          set -o pipefail
+          python3 scripts/main.py | tee main_output.txt
+          echo "script_output<<EOF" >> $GITHUB_OUTPUT
+          cat main_output.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Send Slack notification
+        if: always()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_MESSAGE: |
+            *Scheduled redeploy run result:* ${{ job.status }}
+            *Script output:*
+            ```
+            ${{ steps.main-script.outputs.script_output }}
+            ```
