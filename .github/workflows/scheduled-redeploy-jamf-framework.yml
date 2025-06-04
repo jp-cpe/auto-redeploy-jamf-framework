@@ -13,6 +13,8 @@ jobs:
       JAMF_CLIENT_ID: ${{ secrets.JAMF_CLIENT_ID }}
       JAMF_CLIENT_SECRET: ${{ secrets.JAMF_CLIENT_SECRET }}
       JAMF_BASE_URL: ${{ secrets.JAMF_BASE_URL }}
+      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      LOGGING_LEVEL: ${{ secrets.LOGGING_LEVEL }}
       GROUP_ID: ${{ secrets.GROUP_ID }}
 
     steps:
@@ -40,7 +42,6 @@ jobs:
         if: always()
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_MESSAGE: |
             *Scheduled redeploy run result:* ${{ job.status }}
             *Script output:*

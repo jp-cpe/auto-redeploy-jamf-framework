@@ -9,9 +9,10 @@ from jamf_pro_sdk.helpers import logger_quick_setup
 JAMF_CLIENT_ID = os.getenv("JAMF_CLIENT_ID")
 JAMF_CLIENT_SECRET = os.getenv("JAMF_CLIENT_SECRET")
 JAMF_BASE_URL = os.getenv("JAMF_BASE_URL")
+LOG_LEVEL = os.getenv("LOGGING_LEVEL", "INFO").upper()
 
 # Logging
-logger_quick_setup(level=logging.INFO)
+logger_quick_setup(level=getattr(logging, LOG_LEVEL))
 
 # Session config
 config = SessionConfig(
