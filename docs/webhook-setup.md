@@ -4,6 +4,15 @@ This guide explains how to deploy an event-driven FastAPI service that listens f
 
 ---
 
+## 📚 Table of Contents
+
+* [Generate Webhook Secret](#-generate-webhook-secret)
+* [Generate GitHub PAT](#-generate-github-pat-(personal-access-token))
+* [Deploy FastAPI to Fly.io](#-deploy-fastapi-to-fly.io)
+* [Test the Webhook](#-test-the-webhook)
+* [Configure Jamf Webhook](#-configure-jamf-webhook)
+
+---
 ## 🔐 Generate Webhook Secret
 
 Use this command to create a secure 256-bit hex string:
