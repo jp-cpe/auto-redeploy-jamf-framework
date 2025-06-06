@@ -12,15 +12,15 @@ This project automates the redeployment of the Jamf management framework to macO
 
 ## 📚 Table of Contents
 
-* [What It Does](#what-it-does)
-* [Architecture](#architecture)
-* [Jamf Configuration](#jamf-configuration)
-* [Repository Setup](#repository-setup)
-* [Usage](#usage)
-* [Advanced Setup](#advanced-setup)
-* [Slack Notifications](#slack-notifications)
-* [Notes](#notes)
-* [Credit](#credit)
+* [What It Does](#-what-it-does)
+* [Architecture](#-architecture)
+* [Jamf Configuration](#-jamf-configuration)
+* [Repository Setup](#-repository-setup)
+* [Usage](#-usage)
+* [Advanced Setup](#-advanced-setup)
+* [Slack Notifications](#-slack-notifications)
+* [Notes](#-notes)
+* [Credit](#-credit)
 
 ---
 
