@@ -42,8 +42,17 @@ jobs:
           cat redeploy_output.txt >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
+      - name: Check for Slack Webhook
+        id: check-slack-webhook
+        run: |
+          if [ -z "${{ secrets.SLACK_WEBHOOK }}" ]; then
+            echo "skip_slack_notification=true" >> $GITHUB_ENV
+          else
+            echo "skip_slack_notification=false" >> $GITHUB_ENV
+          fi
+
       - name: Send Slack notification
-        if: always()
+        if: always() && env.skip_slack_notification == 'false'
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_MESSAGE: |
