@@ -1,4 +1,4 @@
-# Jamf Framework Redeployment Script
+# Auto-Redeploy Jamf Framework
 
 This project automates the redeployment of the Jamf management framework to macOS devices using Jamf Pro’s APIs. It proactively remediates stale or broken clients without manual intervention, using GitHub Actions and optionally a FastAPI webhook adapter for real-time response.
 
@@ -9,17 +9,11 @@ This project automates the redeployment of the Jamf management framework to macO
 > — [Jamf Technical Article](https://learn.jamf.com/en-US/bundle/technical-articles/page/Redeploying_the_Jamf_Management_Framework_Using_the_Jamf_Pro_API.html)
 
 ---
-<h1 align="center">
-📺 Watch the Tutorial
-</h1>
+## 📺 Watch the Tutorial
 
-<p align="center">
-  <a href="https://youtu.be/HoNK7DBaMhw">
-    <img src="https://img.youtube.com/vi/HoNK7DBaMhw/hqdefault.jpg" alt="Watch the tutorial – Effortless Device Management: Redeploying Jamf Framework Simplified">
-  </a>
-
-  <p align="center">Learn how to deploy this project step-by-step, including the Jamf configuration, GitHub Actions setup, and optional real-time webhooks using FastAPI.</p>
-</p>
+[![Watch the tutorial – Effortless Device Management: Redeploying Jamf Framework Simplified](https://img.youtube.com/vi/HoNK7DBaMhw/hqdefault.jpg)](https://youtu.be/HoNK7DBaMhw)
+ 
+Learn how to deploy this project step-by-step, including the Jamf configuration, GitHub Actions setup, and optional real-time webhooks using FastAPI.
  
 ---
 
