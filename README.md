@@ -9,13 +9,18 @@ This project automates the redeployment of the Jamf management framework to macO
 > — [Jamf Technical Article](https://learn.jamf.com/en-US/bundle/technical-articles/page/Redeploying_the_Jamf_Management_Framework_Using_the_Jamf_Pro_API.html)
 
 ---
+<h1 align="center">
+📺 Watch the Tutorial
+</h1>
 
-## 📺 Watch the Tutorial
+<p align="center">
+  <a href="https://youtu.be/HoNK7DBaMhw">
+    <img src="https://img.youtube.com/vi/HoNK7DBaMhw/hqdefault.jpg" alt="Watch the tutorial – Effortless Device Management: Redeploying Jamf Framework Simplified">
+  </a>
 
-[![Watch the tutorial – Effortless Device Management: Redeploying Jamf Framework Simplified](https://img.youtube.com/vi/HoNK7DBaMhw/hqdefault.jpg)](https://youtu.be/HoNK7DBaMhw)
+  <p align="center">Learn how to deploy this project step-by-step, including the Jamf configuration, GitHub Actions setup, and optional real-time webhooks using FastAPI.</p>
+</p>
  
-Learn how to deploy this project step-by-step, including configuration profiles, GitHub Actions setup, and optional real-time webhooks using FastAPI.
-
 ---
 
 ## 📚 Table of Contents
